@@ -25,7 +25,7 @@ import rx.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
     companion object {
-        val TAG = "**Paco**"
+        val TAG = "**Pacoo**"
     }
 
     private lateinit var games:Games
