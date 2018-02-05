@@ -2,10 +2,6 @@ package net.azarquiel.steamretrofixrx.model
 
 import com.google.gson.annotations.SerializedName
 
-/**
- * Created by pacopulido on 04/2/18.
- */
-
 // Class para la SteamApiService Get todos los games
 data class Games(val applist:Apps)
 data class Apps(val apps:List<Game>)
