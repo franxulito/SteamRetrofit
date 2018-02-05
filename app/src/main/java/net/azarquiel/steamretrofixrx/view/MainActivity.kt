@@ -54,10 +54,13 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private lateinit var searchView: SearchView
 
+    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         progressBar.visibility = View.VISIBLE
+        setSupportActionBar(toolbar)
 
         loadGamesDrive()
 //        loadGames()
