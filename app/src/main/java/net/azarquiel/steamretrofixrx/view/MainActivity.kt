@@ -19,9 +19,6 @@ import net.azarquiel.steamretrofixrx.model.GameStore
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
-/**
- * Created by pacopulido on 04/2/18.
- */
 
 class MainActivity : AppCompatActivity() {
 
