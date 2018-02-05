@@ -76,8 +76,6 @@ class MainActivity : AppCompatActivity() {
                 )
     }
 
-
-
     private fun driveResponseToGames(result: DriveResponse) {
         gamesDrive=ArrayList<GameDrive>()
         for (row in result.table.rows) {
@@ -90,7 +88,6 @@ class MainActivity : AppCompatActivity() {
             gamesDrive.add(gameDrive)
         }
     }
-
 
     private fun addGameDrive() {
         // Si os dais cuenta cuando introduzco el id del juego le pogo una comilla simple antes
