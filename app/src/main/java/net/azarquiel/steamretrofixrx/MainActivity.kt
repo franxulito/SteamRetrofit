@@ -1,13 +1,12 @@
 package net.azarquiel.steamretrofixrx
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
-import net.azarquiel.steamretrofixrx.model.Games
 import net.azarquiel.steamretrofixrx.api.SteamApiService
 import net.azarquiel.steamretrofixrx.api.SteamServiceDriveGet
 import net.azarquiel.steamretrofixrx.api.SteamServiceDrivePost
@@ -15,6 +14,7 @@ import net.azarquiel.steamretrofixrx.api.SteamStoreService
 import net.azarquiel.steamretrofixrx.model.DriveResponse
 import net.azarquiel.steamretrofixrx.model.GameDrive
 import net.azarquiel.steamretrofixrx.model.GameStore
+import net.azarquiel.steamretrofixrx.model.Games
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
