@@ -2,11 +2,14 @@ package net.azarquiel.steamretrofixrx
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
+import net.azarquiel.steamretrofixrx.adapter.CustomAdapter
 import net.azarquiel.steamretrofixrx.api.SteamApiService
 import net.azarquiel.steamretrofixrx.api.SteamServiceDriveGet
 import net.azarquiel.steamretrofixrx.api.SteamServiceDrivePost
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var games:Games
     private lateinit var gamesDrive: ArrayList<GameDrive>
+    private lateinit var adapter: CustomAdapter
 
     private val steamApiService by lazy {
         SteamApiService.create()
@@ -46,10 +50,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        progressBar.visibility = View.VISIBLE
+        //progressBar.visibility = View.VISIBLE
         loadGames()
         loadGame("440")
-        addGameDrive()
+        //addGameDrive()
         loadGamesDrive()
     }
 
@@ -67,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                             showGamesDrive()
                         },
                         { error ->
-                            progressBar.visibility = View.GONE
+                           // progressBar.visibility = View.GONE
                             Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
                             Log.e(TAG,error.message)
                         }
@@ -134,7 +138,7 @@ class MainActivity : AppCompatActivity() {
                             showGame(gameDrive)
                         },
                         { error ->
-                            progressBar.visibility = View.GONE
+                            //progressBar.visibility = View.GONE
                             Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
                             Log.e(TAG,error.message)
                         }
@@ -149,10 +153,10 @@ class MainActivity : AppCompatActivity() {
                         { games ->
                             this.games = games
                             showGames()
-                            progressBar.visibility = View.GONE
+                           // progressBar.visibility = View.GONE
                         },
                         { error ->
-                            progressBar.visibility = View.GONE
+                            //progressBar.visibility = View.GONE
                             Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
                             Log.e(TAG,error.message)
                         }
@@ -163,10 +167,18 @@ class MainActivity : AppCompatActivity() {
 //        games.applist.apps.forEach{ game ->
 //            Log.d(TAG,game.toString())
 //        }
+        /*
         Log.d(TAG, "*** Todos los juegos de la api ***")
         Log.d(TAG, games.applist.apps[0].toString())
         Log.d(TAG, games.applist.apps[games.applist.apps.size-1].toString())
         Log.d(TAG,"sizegames="+games.applist.apps.size)
+   */
+        rvGamesDrive.layoutManager = LinearLayoutManager(this)
+        rvGamesDrive.itemAnimator = DefaultItemAnimator()
+        rvGamesDrive.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+
+        adapter = CustomAdapter(this, R.layout.row_gamedrive,gamesDrive)
+        rvGamesDrive.adapter = adapter
     }
 
     private fun showGamesDrive() {
