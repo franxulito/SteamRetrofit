@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="net.azarquiel.steamretrofixrx.view.MainActivity">
+
+
+    <item
+        android:id="@+id/search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:orderInCategory="100"
+        android:title="titulo"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/favorites"
+        android:orderInCategory="101"
+        app:showAsAction="ifRoom"
+        android:title="@string/favorite"
+        android:icon="@android:drawable/star_off"/>
+
+</menu>

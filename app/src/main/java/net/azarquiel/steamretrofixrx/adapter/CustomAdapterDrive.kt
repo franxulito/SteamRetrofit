@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.drive_row.view.*
 import net.azarquiel.steamretrofixrx.model.GameDrive
 
@@ -32,8 +33,8 @@ class CustomAdapterDrive(val context: Context,
 
         fun bind(dataItem: GameDrive, position: Int){
 
-
-
+            Picasso.with(context).load(dataItem.image).into(itemView.ivGameRow)
+            itemView.tvNameRow.text = dataItem.name
 
         }
 

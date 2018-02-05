@@ -1,13 +1,23 @@
 package net.azarquiel.steamretrofixrx.view
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.view.View.GONE
+import android.widget.LinearLayout
+import android.widget.SearchView
 import android.widget.Toast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import net.azarquiel.steamretrofixrx.R
+import net.azarquiel.steamretrofixrx.adapter.CustomAdapterDrive
 import net.azarquiel.steamretrofixrx.model.Games
 import net.azarquiel.steamretrofixrx.api.SteamApiService
 import net.azarquiel.steamretrofixrx.api.SteamServiceDriveGet
@@ -20,7 +30,7 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     companion object {
         val TAG = "****JR****"
@@ -42,14 +52,18 @@ class MainActivity : AppCompatActivity() {
         SteamServiceDrivePost.create()
     }
 
+    private lateinit var searchView: SearchView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         progressBar.visibility = View.VISIBLE
-        loadGames()
-        loadGame("440")
-        addGameDrive()
+
         loadGamesDrive()
+//        loadGames()
+//        loadGame("440")
+//        addGameDrive()
+//        loadGamesDrive()
     }
 
     private fun loadGamesDrive() {
@@ -64,9 +78,10 @@ class MainActivity : AppCompatActivity() {
 
                             driveResponseToGames(driveResponse)
                             showGamesDrive()
+                            progressBar.visibility = GONE
                         },
                         { error ->
-                            progressBar.visibility = View.GONE
+                            progressBar.visibility = GONE
                             Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
                             Log.e(TAG,error.message)
                         }
@@ -74,7 +89,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun driveResponseToGames(result: DriveResponse) {
-        gamesDrive=ArrayList<GameDrive>()
+        gamesDrive = ArrayList<GameDrive>()
         for (row in result.table.rows) {
             var gameDrive = GameDrive()
             gameDrive.id = row.column[1].value
@@ -166,9 +181,36 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showGamesDrive() {
-        Log.d(TAG, "*** Todos los juegos de Drive ***")
-        gamesDrive.forEach{ game ->
-            Log.d(TAG,game.toString())
+        rvDriveGames.layoutManager = LinearLayoutManager(this)
+        rvDriveGames.adapter = CustomAdapterDrive(this, R.layout.drive_row, gamesDrive)
+
+
+//
+//        Log.d(TAG, "*** Todos los juegos de Drive ***")
+//        gamesDrive.forEach{ game ->
+//            Log.d(TAG,game.toString())
+//        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_main, menu)
+        val searchItem = menu.findItem(R.id.search)
+        searchView = searchItem.actionView as SearchView
+        searchView.setQueryHint("Search...")
+        searchView.setOnQueryTextListener(this)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.favorites -> {
+//                val intent = Intent(this, FavsActivity::class.java)
+//                this.startActivity(intent)
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -193,5 +235,33 @@ class MainActivity : AppCompatActivity() {
         newjson = newjson.substring(0, newjson.indexOf(");"))
 
         return newjson
+    }
+
+    override fun onQueryTextChange(newText: String): Boolean {
+        val query = newText.toLowerCase()
+        Toast.makeText(this, newText, Toast.LENGTH_SHORT).show()
+//        val filteredList = ArrayList<Apps>()
+//
+//        games.clear()
+//        games.addAll(auxgames)
+//
+//        if (query.isEmpty()){
+//            filteredList.addAll(auxgames)
+//        }
+//        else {
+//            games.filterTo(filteredList) { it.name.startsWith(query,true) }
+//            games.forEach { if(it.name.startsWith(query, true)) filteredList.add(it) }
+//        }
+//
+//        games.clear()
+//        games.addAll(filteredList)
+//        adapter.notifyDataSetChanged()
+
+        return false
+    }
+
+    override fun onQueryTextSubmit(text: String): Boolean {
+//        Toast.makeText(this, "Searching for " + text, Toast.LENGTH_LONG).show()
+        return false
     }
 }
