@@ -29,12 +29,12 @@ interface SteamServiceDrivePost {
     @FormUrlEncoded
     @POST("formResponse")
     fun saveGame(
-            @Field("entry.419496072") id: String,
-            @Field("entry.530586549") name: String,
-            @Field("entry.1649109160") description: String,
-            @Field("entry.1379836168") image: String,
-            @Field("entry.2053329122") link: String
-    ): Observable<String>
+            @Field("entry.714030225") id: String,
+            @Field("entry.984612622") name: String,
+            @Field("entry.1334703842") description: String,
+            @Field("entry.1944890995") image: String,
+            @Field("entry.1931727422") link: String
+                ): Observable<String>
 
     // común a todas las instancias de esa clase pues será un singleton
     companion object {
