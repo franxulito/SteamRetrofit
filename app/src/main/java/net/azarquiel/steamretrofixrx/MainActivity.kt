@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
+import net.azarquiel.steamretrofixrx.R.id.progressBar
 import net.azarquiel.steamretrofixrx.model.Games
 import net.azarquiel.steamretrofixrx.api.SteamApiService
 import net.azarquiel.steamretrofixrx.api.SteamServiceDriveGet
