@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
+import net.azarquiel.steamretrofixrx.R.id.progressBar
 import net.azarquiel.steamretrofixrx.model.Games
 import net.azarquiel.steamretrofixrx.api.SteamApiService
 import net.azarquiel.steamretrofixrx.api.SteamServiceDriveGet
@@ -79,7 +80,7 @@ class MainActivity : AppCompatActivity() {
     private fun driveResponseToGames(result: DriveResponse) {
         gamesDrive=ArrayList<GameDrive>()
         for (row in result.table.rows) {
-            var gameDrive = GameDrive()
+            val gameDrive = GameDrive()
             gameDrive.id = row.column[1].value
             gameDrive.name = row.column[2].value
             gameDrive.descripcion = row.column[3].value

@@ -24,6 +24,7 @@ data class DriveResponse (var table:Table)
 data class Table (var rows : List<Rows>)
 data class Rows (@SerializedName("c") var column : List<Column>)
 data class Column (@SerializedName("v") var value : String, @SerializedName("f") var format : String)
+
 // class para volcar Games de Drive que están en Rows y Columns
 // en Objetos mas bonitos. O uno de SteamStore que está en Data
 data class GameDrive(var id:String="", var name:String = "",var descripcion:String="", var image:String="", var link:String="")
